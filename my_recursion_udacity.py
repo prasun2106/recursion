@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Udacity Notebook 1 - Introduction
+# # Recursion
 
-# In[14]:
+# ## Problem 1 - Introduction
+
+# In[1]:
 
 
 # my implementation accounts for both positive and negative exponents
@@ -21,7 +23,7 @@ def power_function(n, e):
 power_function(2,-1)
 
 
-# In[15]:
+# In[2]:
 
 
 # my implementation - almost same as Udacity
@@ -35,7 +37,7 @@ def sum_integers(n):
 sum_integers(3)
 
 
-# In[16]:
+# In[3]:
 
 
 # my implementation - almost same as Udacity
@@ -49,7 +51,7 @@ def sum_array(arr):
 sum_array([1,2,3,4,5])
 
 
-# In[17]:
+# In[4]:
 
 
 # my implementation - in slightly different way
@@ -68,9 +70,9 @@ sum_array([1,2,3,4,5])
     
 
 
-# # Udacity Notebook 2 - Factorial Using Recursion
+# ## Problem 2 - Factorial Using Recursion
 
-# In[19]:
+# In[5]:
 
 
 # factorial using recursion
@@ -86,7 +88,7 @@ def fact(n):
 fact(5)
 
 
-# In[21]:
+# In[6]:
 
 
 # my implementation - almost same as Udacity
@@ -101,7 +103,7 @@ def factorial(n):
 factorial(5)
 
 
-# In[22]:
+# In[7]:
 
 
 # Test Cases
@@ -111,9 +113,9 @@ print ("Pass" if  (1 == factorial(1)) else "Fail")
 print ("Pass" if  (120 == factorial(5)) else "Fail")
 
 
-# # Udacity Notebook 3 - Reversing a string
+# ## Problem 3 - Reversing a string
 
-# In[41]:
+# In[8]:
 
 
 def reverse_string(my_string):
@@ -126,7 +128,7 @@ def reverse_string(my_string):
 reverse_string('prasun')
 
 
-# In[42]:
+# In[9]:
 
 
 # my implementation - almost same as Udacity
@@ -139,7 +141,7 @@ def reverse_string(my_string):
 reverse_string('prasun')
 
 
-# In[43]:
+# In[10]:
 
 
 # Test Cases
@@ -148,9 +150,9 @@ print ("Pass" if  ("" == reverse_string("")) else "Fail")
 print ("Pass" if  ("cba" == reverse_string("abc")) else "Fail")
 
 
-# # Udacity Notebook 4 - Checking Palindrome
+# ## Problem 4 - Checking Palindrome
 
-# In[44]:
+# In[11]:
 
 
 # my implementation - different than Udacity
@@ -163,14 +165,14 @@ def check_palindrome(my_string):
     return
 
 
-# In[45]:
+# In[12]:
 
 
 print(check_palindrome('prasarp'))
 print(check_palindrome('prasarpwmdk'))
 
 
-# In[49]:
+# In[13]:
 
 
 # another method:
@@ -184,7 +186,7 @@ def is_palindrome(my_string):
         return output
 
 
-# In[50]:
+# In[14]:
 
 
 # Test Cases
@@ -196,9 +198,9 @@ print ("Pass" if  (is_palindrome("abba")) else "Fail")
 print ("Pass" if not (is_palindrome("Udacity")) else "Fail")
 
 
-# # Udacity Notebook 5 - List Permutation
+# ## Problem 5 - List Permutation
 
-# In[77]:
+# In[15]:
 
 
 def create_permutations(my_list):
@@ -220,9 +222,9 @@ def create_permutations(my_list):
 create_permutations([1,2,4])
 
 
-# # Udacity Notebook 6 - String Permutations
+# ## Problem 6 - String Permutations
 
-# In[87]:
+# In[16]:
 
 
 # Return all permutations of a string in a list
@@ -246,82 +248,162 @@ create_string_permutation('abcd')
     
 
 
-# In[82]:
+# In[17]:
 
 
+def test_function(test_case):
+    string = test_case[0]
+    solution = test_case[1]
+    output = create_string_permutation(string)
+    
+    output.sort()
+    solution.sort()
+    
+    if output == solution:
+        print("Pass")
+    else:
+        print("Fail")
 
 
-
-# In[ ]:
-
+# In[18]:
 
 
+string = 'ab'
+solution = ['ab', 'ba']
+test_case = [string, solution]
+test_function(test_case)
 
 
-# In[ ]:
+# In[19]:
 
 
+string = 'abc'
+output = ['abc', 'bac', 'bca', 'acb', 'cab', 'cba']
+test_case = [string, output]
+test_function(test_case)
 
 
-
-# In[ ]:
-
+# In[20]:
 
 
+string = 'abcd'
+output = ['abcd', 'bacd', 'bcad', 'bcda', 'acbd', 'cabd', 'cbad', 'cbda', 'acdb', 'cadb', 'cdab', 'cdba', 'abdc', 'badc', 'bdac', 'bdca', 'adbc', 'dabc', 'dbac', 'dbca', 'adcb', 'dacb', 'dcab', 'dcba']
+test_case = [string, output]
+test_function(test_case)
 
 
-# In[ ]:
+# ## Problem 7 - Keypad Combinations 
+
+# In[21]:
 
 
+# find all alphabet combinations if an integer "num" is pressed on a mobile keyboard
+# solution:
+
+def keypad_combinations(num):
+    
+    my_dict = {'2':['a','b','c'], '3':['d','e','f'],
+              '4':['g','h','i'], '5': ['j','k','l'],
+              '6':['m','n','o'], '7':['p','q','r','s'],
+              '8':['t','u','v'], '9':['w','x','y','z']}
+    if num == 0:
+        return [""]
+    elif num/10 <1:
+        return my_dict[str(num)]
+    else:
+        tens = my_dict[str(num%10)]
+        remaining = keypad_combinations(num//10)
+        
+        result = []
+        for i in tens:
+            for j in remaining:
+                result.append(j + i)
+        return result
 
 
-
-# In[ ]:
-
+# In[22]:
 
 
+def test_keypad(input, expected_output):
+    if sorted(keypad_combinations(input)) == expected_output:
+        print("Yay. We got it right.")
+    else:
+        print("Oops! That was incorrect.")
 
 
-# In[ ]:
+# In[23]:
 
 
+# Base case: list with empty string
+input = 0
+expected_output = [""]
+test_keypad(input, expected_output)
 
 
-
-# In[ ]:
-
+# In[24]:
 
 
+# Example case
+input = 23
+expected_output = sorted(["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"])
+test_keypad(input, expected_output)
 
 
-# In[ ]:
+# In[25]:
 
 
+# Example case
+input = 32
+expected_output = sorted(["da", "db", "dc", "ea", "eb", "ec", "fa", "fb", "fc"])
+test_keypad(input, expected_output)
 
 
-
-# In[ ]:
-
+# In[26]:
 
 
+test_keypad(input, expected_output)
 
 
-# In[ ]:
+# In[27]:
 
 
+# Example case
+input = 8
+expected_output = sorted(["t", "u", "v"])
+test_keypad(input, expected_output)
 
 
-
-# In[ ]:
-
+# In[28]:
 
 
+input = 354
+expected_output = sorted(["djg", "ejg", "fjg", "dkg", "ekg", "fkg", "dlg", "elg", "flg", "djh", "ejh", "fjh", "dkh", "ekh", "fkh", "dlh", "elh", "flh", "dji", "eji", "fji", "dki", "eki", "fki", "dli", "eli", "fli"])
+test_keypad(input, expected_output)
 
 
-# In[ ]:
+# ## Problem 7 - Keypad Combination Method 2
+
+# In[29]:
 
 
+digit_map = {
+    '2': 'abc',
+    '3': 'def',
+    '4': 'ghi',
+    '5': 'jkl',
+    '6': 'mno',
+    '7': 'pqrs',
+    '8': 'tuv',
+    '9': 'wxyz',
+}
 
+def word_numbers(input):
+    input = str(input)
+    ret = ['']
+    for char in input:
+        letters = digit_map.get(char, '')
+        ret = [prefix+letter for prefix in ret for letter in letters]
+    return ret
 
 
 # In[ ]:
