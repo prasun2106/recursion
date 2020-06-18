@@ -406,8 +406,36 @@ def word_numbers(input):
     return ret
 
 
-# In[ ]:
+# ## Problem 8 - Deep Reverse
+
+# In[47]:
 
 
+# reverse a list as well as reverse any list present in the original list
 
+# my own implementation
+def reverse_list(my_list):
+    if len(my_list) <= 1:
+        if type(my_list[0]) == list:
+            return(reverse_string(my_list[0]))
+        else:
+            return(my_list)
+        
+    else:
+        last_element = my_list[-1]
+        remaining_element = my_list[:-1]
+        if type(last_element) == list:
+            a = reverse_list(last_element)
+        else:
+            a = last_element
+        
+        result = [a] + reverse_list(remaining_element)
+    
+    return result       
+
+
+# In[48]:
+
+
+reverse_list([1,2,3,[4,2,3,6]])
 
